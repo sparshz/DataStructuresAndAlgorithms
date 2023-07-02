@@ -1,0 +1,70 @@
+class Solution {
+private:
+    void dfs(vector<vector<int>>&vis, vector<vector<char>>&board,int row, int col){
+        int n = board.size();
+        int m = board[0].size();
+        vis[row][col] = 1;
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+        for(int i=0;i<4;i++)
+        {
+            int nr = row + drow[i];
+            int nc = col + dcol[i];
+            if(nr >=0 && nr <n && nc >=0 && nc <m && board[nr][nc] == 'O' && !vis[nr][nc]){
+                dfs(vis,board,nr,nc);
+            }
+        }
+    }
+public:
+    void solve(vector<vector<char>>& board) {
+        int n = board.size();
+        int m = board[0].size();
+        vector<vector<int>>vis(n,vector<int>(m,0));
+
+        for(int i=0;i<n;i++)
+        {
+            //for first col
+            if(board[i][0]=='O' && !vis[i][0])
+            {
+                dfs(vis,board,i,0);
+            }
+
+            //for last col
+            if(board[i][m-1]=='O' && !vis[i][m-1])
+            {
+                dfs(vis,board,i,m-1);
+            }
+
+        }
+
+        for(int j=0;j<m;j++)
+        {
+            //for first row
+            if(board[0][j]=='O' && !vis[0][j])
+            {
+                dfs(vis,board,0,j);
+            }
+
+            //for last row
+
+            if(board[n-1][j]=='O' && !vis[n-1][j])
+            {
+                dfs(vis,board,n-1,j);
+            }
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(board[i][j] == 'O' && !vis[i][j])
+                {
+                    board[i][j] = 'X';
+                }
+            }
+        }
+
+
+        
+    }
+};
