@@ -1,0 +1,30 @@
+class Solution {
+private:
+    void dfs(vector<vector<int>>& image, int sr, int sc, int color , vector<vector<int>>&vis,int inicolor){
+        int n = image.size();
+        int m = image[0].size();
+        vis[sr][sc]=1;
+        image[sr][sc] = color;
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+        for(int i=0;i<4;i++)
+        {
+            int nr = sr + drow[i];
+            int nc = sc + dcol[i];
+            if(nr >=0 && nr <n && nc >=0 && nc <m && image[nr][nc] == inicolor && !vis[nr][nc]){
+                dfs(image,nr,nc,color,vis,inicolor);
+            }
+        }
+    }
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        int n = image.size();
+        int m = image[0].size();
+        int inicolor = image[sr][sc];
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        dfs(image,sr,sc,color,vis,inicolor);
+        return image;
+        
+        
+    }
+};
