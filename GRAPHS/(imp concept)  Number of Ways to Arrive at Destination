@@ -22,11 +22,16 @@ public:
             for(auto it:adj[node]){
                 int adjnode = it.first;
                 long long edw = it.second;
+
+                //it means we are comming first time at this node with the short distance 
                 if(dist[adjnode] > dis + edw){
                     dist[adjnode] = dis +edw;
                     q.push({dis+edw,adjnode});
                     ways[adjnode] = ways[node];
                 }
+
+                //it means we have already arived the node before with the same distance but from another path so the total ways 
+                // will be the ways that previously there + the new ways
                 else if(dist[adjnode] == dis + edw){
                     ways[adjnode] = (ways[adjnode] + ways[node])%mod;
                 }
