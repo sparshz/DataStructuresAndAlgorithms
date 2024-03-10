@@ -58,3 +58,28 @@ int frogJump(int n, vector<int> &heights)
     }
     return dp[n-1];
 }
+
+============================================================================================================================ 
+                              SPACE OPTIMIZATION ( REMOVING DP ARRAY AND USING DIFFERENT VARIABLES )
+============================================================================================================================
+
+#include <bits/stdc++.h> 
+
+int frogJump(int n, vector<int> &heights)
+{
+    // Write your code here.
+    vector<int>dp(n,0);
+    // dp[0] = 0;
+    int previ = 0;
+    int previ2 = 0;
+    int curr = 0;
+    for(int i=1;i<n;i++){
+        int fs = previ + abs(heights[i] - heights[i-1]);
+        int ss = INT_MAX;
+        if(i > 1) ss = previ2 + abs(heights[i] - heights[i-2]);
+        curr = min(fs,ss);
+        previ2 = previ;
+        previ = curr;
+    }
+    return previ;
+}
