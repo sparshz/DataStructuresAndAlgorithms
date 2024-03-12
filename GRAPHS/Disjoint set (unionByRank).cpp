@@ -5,7 +5,7 @@ class DisjointSet{
     vector<int>rank,parent;
     
 public:
-    //ek distructor bnaya jo rank ke ander starting mei 
+    //ek constructor bnaya jo rank ke ander starting mei 
     //saare elements ki value 0 and parent mei har element 
     //ki value uske index ke baraber hogi
     DisjointSet(int n){
