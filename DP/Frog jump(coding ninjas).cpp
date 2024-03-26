@@ -15,7 +15,7 @@ int f(int ind  , vector<int>&heights){
 int frogJump(int n, vector<int> &heights)
 {
     // Write your code here.
-    return f(n+1 , heights);
+    return f(n-1 , heights);
 }
 
 ============================================================================================================================ 
