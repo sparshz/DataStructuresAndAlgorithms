@@ -246,37 +246,31 @@ public:
                               SPACE OPTIMIZATION ( REMOVING DP ARRAY AND USING DIFFERENT VARIABLES )
 ============================================================================================================================
 
-class Solution {
+class Solution
+{
 
-public:
-    int minFallingPathSum(vector<vector<int>>& matrix) {
-        int n= matrix.size();
-        int m = matrix[0].size();
-        int ans = 1e9;
+    public:
+    //Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int W, int wt[], int val[], int n) 
+    { 
+        vector<int>prev(W+1,0) , curr(W+1,0);
         
-
-        vector<int>prev(m,0) , curr(m,0);
-        for(int j=0;j<m;j++) prev[j] = matrix[0][j];
+        for(int i = wt[0] ;i <= W ;i++) prev[i] = val[0];
+        
         for(int i=1;i<n;i++){
-            for(int j=0;j<m;j++){
-                int up = matrix[i][j] +prev[j];
-                int lcor = matrix[i][j];
-                if(j-1 >= 0)   lcor += prev[j-1] ;
-                else lcor += 1e8;
-                int rcor = matrix[i][j];
-                if(j+1 <m)  rcor += prev[j+1]; 
-                else rcor += 1e8;
-                curr[j] =  min(up , min(lcor,rcor));
+            for(int w = 0 ; w <= W;w++){
+                
+                int notTake = 0 + prev[w];
+                int take = INT_MIN; 
+                if(wt[i] <= w){
+                    take = val[i] + prev[w - wt[i]];
+                }
+                
+                 curr[w] = max(notTake,take);
             }
             prev = curr;
         }
-        for(int j=0;j<m;j++){
-            
-            ans = min(ans,prev[j]);
-        }
-
         
-
-        return ans;
+       return prev[W];
     }
 };
